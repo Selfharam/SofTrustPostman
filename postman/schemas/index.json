@@ -1,0 +1,4880 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "e-Rp",
+    "description": "",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "/api/order/pharmacy-list/count": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Получить количество заказов",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Фильтр поиска (модель OrderFilterDto, аналогичная POST запросу).",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32OperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32OperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32OperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/prescription/list/count": {
+      "get": {
+        "tags": [
+          "Prescription"
+        ],
+        "summary": "Количество записей в соответствии с фильтром.",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Фильтр поиска (модель PrescriptionSearch, аналогичная POST запросу)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32OperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32OperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32OperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/release/list/count": {
+      "get": {
+        "tags": [
+          "Release"
+        ],
+        "summary": "Количество отпусков по фильтру.",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Фильтр поиска отпусков рецептов/назначений.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32OperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32OperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32OperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/CancelReason": {
+      "get": {
+        "tags": [
+          "CancelReason"
+        ],
+        "summary": "Получение списка причин отмены рецепта/назначения",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Наименование причины",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Дата отмены",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "Кол-во запрашиваемых записей",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Пропустить записей",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringBaseDictionaryIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringBaseDictionaryIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringBaseDictionaryIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Esklp": {
+      "get": {
+        "tags": [
+          "Esklp"
+        ],
+        "summary": "Получить список ЛП в соответсвии с фильтром.",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Наименование препарата",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "smnnCode",
+            "in": "query",
+            "description": "Код узла СМНН",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startCode",
+            "in": "query",
+            "description": "Код МНН (поиск происходит по вхождению значения с начала строки)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startWithKlpCode",
+            "in": "query",
+            "description": "Код КЛП (поиск происходит по вхождению значения с начала строки)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Дата отпуска",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "Кол-во запрашиваемых записей",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Пропустить записей",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringBaseDictionaryIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringBaseDictionaryIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringBaseDictionaryIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Esklp/get": {
+      "get": {
+        "tags": [
+          "Esklp"
+        ],
+        "summary": "Получить ЛП по коду",
+        "parameters": [
+          {
+            "name": "startWithKlpCode",
+            "in": "query",
+            "description": "Код КЛП",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EsklpOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EsklpOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EsklpOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/delivery/register": {
+      "post": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Регистрация нового заказа на доставку.",
+        "requestBody": {
+          "description": "Данные заказа на доставку.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryRegisterDto"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryRegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateNullableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateNullableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateNullableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/delivery/list": {
+      "post": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Получение статусов заказов на доставку.",
+        "requestBody": {
+          "description": "Подписанные данные заказа на доставку.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliverySearchDto"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliverySearchDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateDtoIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateDtoIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateDtoIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/delivery/getpin": {
+      "post": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Получить пин-код по идентификатору заказа на доставку.",
+        "requestBody": {
+          "description": "Идентификатор доставки.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryGetPinDto"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryGetPinDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32NullableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32NullableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32NullableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/register-by-patient": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Регистрация нового заказа на отсроченное обслуживание/бронирование в личном кабинете пациента.",
+        "requestBody": {
+          "description": "Данные заказа.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderByPatientDto"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderByPatientDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/register-by-pharmacy": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Регистрация нового заказа на отсроченное обслуживание аптекой.",
+        "requestBody": {
+          "description": "Данные заказа.",
+          "content": {
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderByPharmacyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/cancel": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Отмена заказа на отсроченное обслуживание/бронирование в личном кабинете пациента.",
+        "requestBody": {
+          "description": "Данные отмены заказа.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelOrderDto"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/add-delayed-service": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Добавление информации об отсроченном обслуживании аптекой в заказ.",
+        "requestBody": {
+          "description": "Данные взятия на отсроченное обслуживание.",
+          "content": {
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/AddDelayedServiceToOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/add-booking": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Добавление информации о бронировании в заказ.",
+        "requestBody": {
+          "description": "Данные бронирования",
+          "content": {
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBookingToOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/add-delivery": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Добавление информации о доставке в заказ.\r\nДобавление новой информации только для заказов в статусе Delivered.",
+        "requestBody": {
+          "description": "Данные о доставке",
+          "content": {
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/AddDeliveryToOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/denial": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Отказ в обслуживании заказа от аптеки.",
+        "requestBody": {
+          "description": "Данные об отказе",
+          "content": {
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/DeniallOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/complete": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Зарегистрировать информацию о выполнении заказа.",
+        "requestBody": {
+          "description": "Данные о выполнении",
+          "content": {
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderRegisterResultOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/pharmacy-list": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Получить список заказов для отображения в таблице аптеки",
+        "requestBody": {
+          "description": "Фильтр.",
+          "content": {
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderFilterDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderFilterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PharmacyOrderDtoIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PharmacyOrderDtoIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PharmacyOrderDtoIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/patient-list": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Получить список заказов для отображения в личном кабинете пациента.",
+        "requestBody": {
+          "description": "Фильтр.",
+          "content": {
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderFilterDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderFilterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientOrderDtoIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientOrderDtoIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientOrderDtoIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Получить данные заказа",
+        "requestBody": {
+          "description": "Идентификатор заказа (Дубль для попадания в подпись).",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimpleOrder"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/SimpleOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDtoOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDtoOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDtoOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/prescription/short/list": {
+      "post": {
+        "tags": [
+          "Prescription"
+        ],
+        "summary": "Получить список коротких моделей рецептов/назначений, удовлетворяющих заданным параметрам.",
+        "requestBody": {
+          "description": "Фильтр поиска",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrescriptionSearch"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/PrescriptionSearch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShortPrescriptionIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShortPrescriptionIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShortPrescriptionIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/prescription/patientPrescription/list": {
+      "post": {
+        "tags": [
+          "Prescription"
+        ],
+        "summary": "Получить список моделей рецептов/назначений для карточек в лк пациента, удовлетворяющих заданным параметрам.",
+        "requestBody": {
+          "description": "Фильтр поиска.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrescriptionSearch"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/PrescriptionSearch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientPrescriptionDtoIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientPrescriptionDtoIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientPrescriptionDtoIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/prescription/list": {
+      "post": {
+        "tags": [
+          "Prescription"
+        ],
+        "summary": "Получить данные в формате СЭМД.",
+        "requestBody": {
+          "description": "Параметры запроса на получение рецептов/назначений",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrescriptionSearch"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/PrescriptionSearch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/prescription": {
+      "post": {
+        "tags": [
+          "Prescription"
+        ],
+        "summary": "Регистрация нового рецепта/назначения.",
+        "requestBody": {
+          "description": "Данные с подписанным СЭМД.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Prescription"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/Prescription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Prescription"
+        ],
+        "summary": "Регистрация новой редакции или отмена рецепта/назначения.",
+        "requestBody": {
+          "description": "Подписанные данные.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Prescription"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/Prescription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ОК",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный формат запроса. Подробности в поле Errors"
+          },
+          "500": {
+            "description": "Непредвиденная ошибка. Подробности в поле Errors"
+          }
+        }
+      }
+    },
+    "/api/release/short/list": {
+      "post": {
+        "tags": [
+          "Release"
+        ],
+        "summary": "Список отпусков в сокращенном формате.",
+        "requestBody": {
+          "description": "Фильтр поиска отпусков рецептов/назначений.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseSearch"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseSearch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShortReleaseIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShortReleaseIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShortReleaseIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/release/list": {
+      "post": {
+        "tags": [
+          "Release"
+        ],
+        "summary": "Список отпусков в полном формате.",
+        "requestBody": {
+          "description": "Фильтр поиска отпусков рецептов/назначений.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseSearch"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseSearch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReleaseIEnumerableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReleaseIEnumerableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReleaseIEnumerableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/release": {
+      "post": {
+        "tags": [
+          "Release"
+        ],
+        "summary": "Регистрация отпуска рецепта/назначения",
+        "requestBody": {
+          "description": "Отпуск рецепта/назначения",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Release"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/Release"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Release"
+        ],
+        "summary": "Регистрация новой редакции отпуска рецепта/назначения.",
+        "requestBody": {
+          "description": "Отпуск рецепта/назначения.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Release"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/Release"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrescriptionStateOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/delivery/cancel": {
+      "put": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Отмена заказа на доставку.",
+        "requestBody": {
+          "description": "Данные об отмене",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryCancelDto"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryCancelDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateNullableOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateNullableOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateNullableOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/delivery/result": {
+      "put": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Регистрация сведений об исполнения заказа на доставку.",
+        "requestBody": {
+          "description": "Данные о результате исполнении заказа.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryResultDto"
+              }
+            },
+            "application/jose": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryResultDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateOperationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateOperationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryStateOperationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddBookingToOrderDto": {
+        "required": [
+          "dateEnd",
+          "dateTaking",
+          "pharmacist",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа.",
+            "format": "uuid"
+          },
+          "dateTaking": {
+            "type": "string",
+            "description": "Дата взятия на бронирование.",
+            "format": "date-time"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания бронирования.",
+            "format": "date-time"
+          },
+          "pharmacist": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "medication": {
+            "$ref": "#/components/schemas/OrderMedicationDto"
+          },
+          "price": {
+            "type": "number",
+            "description": "Цена (за заказ).",
+            "format": "double",
+            "nullable": true,
+            "example": 245.66
+          }
+        },
+        "additionalProperties": false,
+        "description": "Добавление информации о бронировании к заказу."
+      },
+      "AddDelayedServiceToOrderDto": {
+        "required": [
+          "dateEnd",
+          "dateTaking",
+          "pharmacist",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа в формате UUID.",
+            "format": "uuid"
+          },
+          "pharmacist": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "dateTaking": {
+            "type": "string",
+            "description": "Дата взятия на отсроченное обслуживание.",
+            "format": "date-time"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания отсроченного обслуживания.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Добавление информации об отсроченном обслуживании в заказ."
+      },
+      "AddDeliveryToOrderDto": {
+        "required": [
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа в формате UUID.",
+            "format": "uuid"
+          },
+          "statusInfo": {
+            "type": "string",
+            "description": "Информация о статусе доставки.",
+            "nullable": true
+          },
+          "medication": {
+            "$ref": "#/components/schemas/OrderMedicationDto"
+          },
+          "price": {
+            "type": "number",
+            "description": "Цена (за заказ).",
+            "format": "double",
+            "nullable": true,
+            "example": 245.66
+          }
+        },
+        "additionalProperties": false,
+        "description": "Добавление информации о доставке в заказ."
+      },
+      "AddressDto": {
+        "required": [
+          "code",
+          "fullAddress"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Код адреса (по ОКАТО)\r\nhttps://classifikators.ru/okato",
+            "example": "14210000000"
+          },
+          "region": {
+            "type": "string",
+            "description": "Наименование района.",
+            "nullable": true,
+            "example": "Белгородский район"
+          },
+          "city": {
+            "type": "string",
+            "description": "Город.",
+            "nullable": true,
+            "example": "Белгород"
+          },
+          "street": {
+            "type": "string",
+            "description": "Наименование улицы.",
+            "nullable": true,
+            "example": "Победы"
+          },
+          "house": {
+            "type": "string",
+            "description": "Номер дома.",
+            "nullable": true,
+            "example": "14"
+          },
+          "apartment": {
+            "type": "string",
+            "description": "Квартира",
+            "nullable": true,
+            "example": "19"
+          },
+          "fullAddress": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Полный адрес строкой.",
+            "example": "Белгородский район, г. Белгород, ул. Победы, д. 14, кв. 19"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Адрес"
+      },
+      "Author": {
+        "required": [
+          "name",
+          "snils",
+          "surname"
+        ],
+        "type": "object",
+        "properties": {
+          "surname": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Фамилия.",
+            "example": "Безкруглова"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Имя.",
+            "example": "Ирина"
+          },
+          "patronymic": {
+            "type": "string",
+            "description": "Отчество.",
+            "nullable": true,
+            "example": "Константиновна"
+          },
+          "snils": {
+            "minLength": 1,
+            "type": "string",
+            "description": "СНИЛС.",
+            "example": "06950154572"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Номер телефона.",
+            "nullable": true,
+            "example": "74722205145"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные об авторе."
+      },
+      "BasePersonalData": {
+        "type": "object",
+        "properties": {
+          "surname": {
+            "type": "string",
+            "description": "Фамилия.",
+            "nullable": true,
+            "example": "Иванов"
+          },
+          "name": {
+            "type": "string",
+            "description": "Имя.",
+            "nullable": true,
+            "example": "Иван"
+          },
+          "patronymic": {
+            "type": "string",
+            "description": "Отчество.",
+            "nullable": true,
+            "example": "Иванович"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Базовые персональные данные"
+      },
+      "Cancel": {
+        "required": [
+          "author",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Дата отмены рецепта",
+            "format": "date",
+            "example": "2021-09-15"
+          },
+          "author": {
+            "$ref": "#/components/schemas/Author"
+          },
+          "reasonString": {
+            "type": "string",
+            "description": "Причина отмены рецепта (строкой).",
+            "nullable": true,
+            "example": "Причина отмены"
+          },
+          "reasonCode": {
+            "type": "string",
+            "description": "Код причины отмены рецепта.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.654 поле \"Уникальный идентификатор\"",
+            "nullable": true,
+            "example": "1.2.643.5.1.13.13.12.2.31.2834"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные об отмене рецепта."
+      },
+      "CancelOrderDto": {
+        "required": [
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа.",
+            "format": "uuid"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Комментарий.",
+            "nullable": true,
+            "example": "Ошибка выбора рецепта."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Отмена заказа."
+      },
+      "CompleteOrderDto": {
+        "required": [
+          "releaseUid",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа.",
+            "format": "uuid"
+          },
+          "releaseUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор отпуска.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Отмена заказа."
+      },
+      "CreateOrderByPatientDto": {
+        "required": [
+          "prescriptionUid",
+          "subdivisionOid"
+        ],
+        "type": "object",
+        "properties": {
+          "prescriptionUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор рецепта/назначения UUID.",
+            "format": "uuid",
+            "example": "b5916cb8-a514-4abb-b484-411b977e4781"
+          },
+          "subdivisionOid": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Oid подразделения.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.114 поле \"OID\".",
+            "example": "1.2.643.5.1.13.13.12.2.31.2847.0.111713"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Комментарий.",
+            "nullable": true,
+            "example": "Позвонить по номеру телефона"
+          },
+          "deliveryAddress": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "patientMPhone": {
+            "type": "string",
+            "description": "Номер мобильного телефона пациента.\r\nОбязателен, если не указан в рецепте и заполнено поле \"Адрес доставки\".",
+            "nullable": true,
+            "example": "9511514566"
+          },
+          "medication": {
+            "$ref": "#/components/schemas/OrderMedicationDto"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер заказа.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Создание заказа через личный кабинет пациента."
+      },
+      "CreateOrderByPharmacyDto": {
+        "required": [
+          "dateEnd",
+          "dateTaking",
+          "pharmacist",
+          "prescriptionUid",
+          "subdivisionOid"
+        ],
+        "type": "object",
+        "properties": {
+          "prescriptionUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор рецепта/назначения в системе отправителе сведений в формате UUID.",
+            "format": "uuid",
+            "example": "b5916cb8-a514-4abb-b484-411b977e4781"
+          },
+          "subdivisionOid": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Oid подразделения.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.114 поле \"OID\".",
+            "example": "1.2.643.5.1.13.13.12.2.31.2847.0.111713"
+          },
+          "deliveryAddress": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "patientMPhone": {
+            "type": "string",
+            "description": "Номер мобильного телефона пациента.\r\nОбязателен, если не указан в рецепте и заполнено поле \"Адрес доставки\".",
+            "nullable": true,
+            "example": "9511514566"
+          },
+          "pharmacist": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "dateTaking": {
+            "type": "string",
+            "description": "Дата взятия на отсроченное обслуживание.",
+            "format": "date-time"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания отсроченного обслуживания.",
+            "format": "date-time"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер заказа.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Создание заказа аптекой."
+      },
+      "DayOfWeek": {
+        "enum": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "type": "string"
+      },
+      "DeliveryCancelDto": {
+        "required": [
+          "author",
+          "comment",
+          "dateCancel",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Идентификатор доставки.",
+            "format": "uuid"
+          },
+          "author": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "comment": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Комментарий.",
+            "example": "Неверный адрес доставки."
+          },
+          "dateCancel": {
+            "type": "string",
+            "description": "Дата отмены.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные для отмены доставки."
+      },
+      "DeliveryDto": {
+        "required": [
+          "author",
+          "dateCreate",
+          "state",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Идентификатор.",
+            "format": "uuid"
+          },
+          "dateCreate": {
+            "type": "string",
+            "description": "Дата и время формирования.",
+            "format": "date-time"
+          },
+          "author": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "courier": {
+            "$ref": "#/components/schemas/Author"
+          },
+          "state": {
+            "$ref": "#/components/schemas/DeliveryState"
+          },
+          "dateResult": {
+            "type": "string",
+            "description": "Дата выполнения/отмены заказа",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Заказ на доставку."
+      },
+      "DeliveryGetPinDto": {
+        "required": [
+          "deliveryUid"
+        ],
+        "type": "object",
+        "properties": {
+          "deliveryUid": {
+            "type": "string",
+            "description": "Идентификатор доставки.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Запрос на получение пин-кода"
+      },
+      "DeliveryRegisterDto": {
+        "required": [
+          "author",
+          "dateCreate",
+          "prescriptionUid",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Идентификатор доставки.",
+            "format": "uuid"
+          },
+          "prescriptionUid": {
+            "type": "string",
+            "description": "Идентификатор рецепта.",
+            "format": "uuid"
+          },
+          "author": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "courier": {
+            "$ref": "#/components/schemas/Author"
+          },
+          "dateCreate": {
+            "type": "string",
+            "description": "Дата и время формирования заказа.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Регистрация заказа на доставку."
+      },
+      "DeliveryResultDto": {
+        "required": [
+          "courier",
+          "dateResult",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Идентификатор доставки.",
+            "format": "uuid"
+          },
+          "courier": {
+            "$ref": "#/components/schemas/Author"
+          },
+          "dateResult": {
+            "type": "string",
+            "description": "Дата и время выполнения заказа.",
+            "format": "date-time"
+          },
+          "pinCode": {
+            "type": "integer",
+            "description": "Пин код",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения заказа на доставку."
+      },
+      "DeliverySearchDto": {
+        "type": "object",
+        "properties": {
+          "deliveryUids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Список идентификаторов заказов на доставку.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Модель поиска заказов на доставку."
+      },
+      "DeliveryState": {
+        "enum": [
+          "Delivered",
+          "Done",
+          "Canceled"
+        ],
+        "type": "string",
+        "description": "Статус заказа на доставку:<br />\r\n0 - Передан курьеру.<br />\r\n1 - Доставлен.<br />\r\n2 - Отменен.<br />"
+      },
+      "DeliveryStateDto": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Идентификатор заказа",
+            "format": "uuid"
+          },
+          "state": {
+            "$ref": "#/components/schemas/DeliveryState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Статусы заказов на доставку"
+      },
+      "DeliveryStateDtoIEnumerableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryStateDto"
+            },
+            "description": "Данные результата.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "DeliveryStateNullableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/DeliveryState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "DeliveryStateOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/DeliveryState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "DeniallOrderDto": {
+        "required": [
+          "author",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа.",
+            "format": "uuid"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Комментарий.",
+            "nullable": true,
+            "example": "Ошибка выбора рецепта."
+          },
+          "author": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Отказ в обслуживании аптекой."
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key.",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Сообщение ошибки.",
+            "nullable": true,
+            "example": "Не указан токен авторизации ЕСИА."
+          },
+          "code": {
+            "type": "string",
+            "description": "Код ошибки.",
+            "nullable": true,
+            "example": "ERP_4_2.2."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Ошибка."
+      },
+      "Esklp": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Код.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование.",
+            "nullable": true
+          },
+          "smnnCode": {
+            "type": "string",
+            "description": "Код узла СМНН.",
+            "nullable": true
+          },
+          "tradeName": {
+            "type": "string",
+            "description": "Торговое наименование.",
+            "nullable": true
+          },
+          "standardInn": {
+            "type": "string",
+            "description": "Стандартизованное МНН.",
+            "nullable": true
+          },
+          "standardForm": {
+            "type": "string",
+            "description": "Стандартизованная лекарственная форма.",
+            "nullable": true
+          },
+          "standardDoze": {
+            "type": "string",
+            "description": "Стандартизованная лекарственная доза.",
+            "nullable": true
+          },
+          "producerName": {
+            "type": "string",
+            "description": "Наименование производителя.",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "Страна производитель.",
+            "nullable": true
+          },
+          "unitName": {
+            "type": "string",
+            "description": "Наименование потребительской единицы.",
+            "nullable": true
+          },
+          "normalizedDosage": {
+            "type": "string",
+            "description": "Нормализованная дозировка.",
+            "nullable": true
+          },
+          "unitsCount": {
+            "type": "string",
+            "description": "Кол-во потребительских единиц во вторичной (потребительской) упаковке.",
+            "nullable": true
+          },
+          "essentialMedicines": {
+            "type": "boolean",
+            "description": "ЖНВЛП (Жизненно необходимые и важнейшие лекарственные препараты).",
+            "nullable": true
+          },
+          "narcoticPsychotropic": {
+            "type": "boolean",
+            "description": "Наличие в ЛП наркотических, психотропных веществ и их прекурсоров.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Препарат в кодировке справочника организации."
+      },
+      "EsklpOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/Esklp"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "Gender": {
+        "enum": [
+          "Male",
+          "Female",
+          "Unknown"
+        ],
+        "type": "string",
+        "description": "Пол.<br /> \r\nФНСИ 1.2.643.5.1.13.13.11.1040.<br />\r\n0 - Мужской.<br />\r\n1 - Женский.<br />\r\n2 - Неизвестен.<br />"
+      },
+      "Int32NullableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "integer",
+            "description": "Данные результата.",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "Int32OperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "integer",
+            "description": "Данные результата.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "MedicalWorker": {
+        "required": [
+          "departmentCode",
+          "name",
+          "positionCode",
+          "snils",
+          "specialityCode",
+          "surname"
+        ],
+        "type": "object",
+        "properties": {
+          "surname": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Фамилия.",
+            "example": "Безкруглова"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Имя.",
+            "example": "Ирина"
+          },
+          "patronymic": {
+            "type": "string",
+            "description": "Отчество.",
+            "nullable": true,
+            "example": "Константиновна"
+          },
+          "snils": {
+            "minLength": 1,
+            "type": "string",
+            "description": "СНИЛС.",
+            "example": "06950154572"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Номер телефона.",
+            "nullable": true,
+            "example": "74722205145"
+          },
+          "localId": {
+            "type": "string",
+            "description": "Уникальный идентификатор сотрудника.",
+            "nullable": true,
+            "example": "275C57C6-662C-4935-A9B2-EB64AFE78537"
+          },
+          "birthDate": {
+            "type": "string",
+            "description": "Дата рождения.",
+            "format": "date",
+            "nullable": true,
+            "example": "1971-12-11"
+          },
+          "positionCode": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Должность подписанта.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.181 поле \"Код\".",
+            "example": "1.2.643.5.1.13.13.99.2.181"
+          },
+          "specialityCode": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Специальность подписанта.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.11.1066 поле \"Код\".",
+            "example": "1.2.643.5.1.13.13.11.1066"
+          },
+          "departmentCode": {
+            "minLength": 1,
+            "type": "string",
+            "description": "OID структурного подразделения, в котором числится сотрудник.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.114 поле \"OID структурного подразделения\".",
+            "example": "1.2.643.5.1.13.13.99.2.114"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Медицинский работник."
+      },
+      "Medication": {
+        "required": [
+          "code",
+          "numberDose",
+          "signa",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "prescriptionName": {
+            "type": "string",
+            "description": "Назначено.",
+            "nullable": true,
+            "example": "Метформин, табл. пролонг., 750 мг"
+          },
+          "signa": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Схема приёма (сигнатура).",
+            "example": "Принимать 1 шт перорально 1 раз в день в течение 1 дня"
+          },
+          "precondition": {
+            "type": "string",
+            "description": "Особые указания.",
+            "nullable": true,
+            "example": "Не рекомендуется приём препарата более 7 дней"
+          },
+          "numberDose": {
+            "type": "number",
+            "description": "Количество назначенных единиц.",
+            "format": "float",
+            "example": 1
+          },
+          "type": {
+            "$ref": "#/components/schemas/PrescriptionType"
+          },
+          "code": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Код CMNN или Код справочника медицинского изделия или Код справочника специализированного питания.",
+            "example": "21.20.10.119-000001-1-00093-0000000000000"
+          },
+          "isTrn": {
+            "type": "boolean",
+            "description": "Признак выписки по торговому наименованию.",
+            "nullable": true,
+            "example": false
+          },
+          "latinPrescriptionName": {
+            "type": "string",
+            "description": "Латинское наименование препарата.",
+            "nullable": true,
+            "example": "Metformini"
+          },
+          "latinDosageForm": {
+            "type": "string",
+            "description": "Латинская лекаственная форма.",
+            "nullable": true,
+            "example": "Tabl."
+          },
+          "mnn": {
+            "type": "string",
+            "description": "Международное непатентованное наименование.",
+            "nullable": true,
+            "example": "БЕТАМЕТАЗОН."
+          },
+          "trn": {
+            "type": "string",
+            "description": "Торговое наименование.",
+            "nullable": true,
+            "example": "Дипроспан."
+          },
+          "dosageForm": {
+            "type": "string",
+            "description": "Лекарственная форма.",
+            "nullable": true,
+            "example": "СУСПЕНЗИЯ ДЛЯ ИНЪЕКЦИЙ."
+          },
+          "dosage": {
+            "type": "string",
+            "description": "Дозировка.",
+            "nullable": true,
+            "example": "2 мг+5 мг/мл."
+          },
+          "characteristic": {
+            "type": "string",
+            "description": "Характеристика.",
+            "nullable": true,
+            "example": "0,25мм (31G) х 6мм."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные о назначенном препарате."
+      },
+      "MedicationDispense": {
+        "required": [
+          "code",
+          "count",
+          "handbook",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Наименование",
+            "example": "Метформин, табл. пролонг., 750 мг"
+          },
+          "code": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Код, согласно справочнику handbook.",
+            "example": "21.20.10.119-000001-1-00093-0000000000000"
+          },
+          "handbook": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Наименование справочника.\r\nesklp - справочник ЕСКЛП, \r\ndevice - справочник медицинских изделий,\r\nnutrition - справочник специализированного питания,\r\nиное значение - отпуск в значениях собственного справочника",
+            "example": "esklp"
+          },
+          "count": {
+            "type": "number",
+            "description": "Количество.",
+            "format": "float",
+            "example": 1
+          },
+          "price": {
+            "type": "number",
+            "description": "Стоимость одной упаковки.",
+            "format": "float",
+            "nullable": true,
+            "example": 23.6
+          }
+        },
+        "additionalProperties": false,
+        "description": "Отпущенный препарат"
+      },
+      "OrderBookingDto": {
+        "required": [
+          "author",
+          "dateEnd",
+          "dateTaking"
+        ],
+        "type": "object",
+        "properties": {
+          "author": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "dateTaking": {
+            "type": "string",
+            "description": "Дата взятия на бронирование.",
+            "format": "date-time"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания бронирования.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные о бронировании заказа."
+      },
+      "OrderDalayDto": {
+        "required": [
+          "author",
+          "dateEnd",
+          "dateTaking"
+        ],
+        "type": "object",
+        "properties": {
+          "author": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "dateTaking": {
+            "type": "string",
+            "description": "Дата взятия на отсроченное обслуживание.",
+            "format": "date-time"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания отсроченного обслуживания.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные об отсроченном обслуживании заказа."
+      },
+      "OrderDeliveryDto": {
+        "required": [
+          "date",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Дата установления статуса.",
+            "format": "date-time"
+          },
+          "status": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Состояние доставки."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные о доставке заказа."
+      },
+      "OrderDto": {
+        "required": [
+          "creationDateTime",
+          "denialAuthor",
+          "prescriptionUid",
+          "releaseUid",
+          "state",
+          "subdivision",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор.",
+            "format": "uuid"
+          },
+          "state": {
+            "$ref": "#/components/schemas/OrderStateDto"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер заказа.",
+            "nullable": true
+          },
+          "subdivision": {
+            "$ref": "#/components/schemas/Subdivision"
+          },
+          "medication": {
+            "$ref": "#/components/schemas/OrderMedicationDto"
+          },
+          "price": {
+            "type": "number",
+            "description": "Цена.",
+            "format": "double",
+            "nullable": true,
+            "example": 245.66
+          },
+          "creationDateTime": {
+            "type": "string",
+            "description": "Дата создания заказа",
+            "format": "date-time",
+            "example": "2022-11-18"
+          },
+          "deliveryAddress": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "mPhone": {
+            "type": "string",
+            "description": "Номер мобильного телефона пациента.",
+            "nullable": true,
+            "example": "9511514566"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Комментарий пациента к заказу.",
+            "nullable": true,
+            "example": "Предваритеольно позвонить по телефону."
+          },
+          "cancelComment": {
+            "type": "string",
+            "description": "Комментарий фармацевта к отказу.",
+            "nullable": true,
+            "example": "Препарата нет на складах."
+          },
+          "denialAuthor": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "releaseUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор отпуска.",
+            "format": "uuid"
+          },
+          "dalay": {
+            "$ref": "#/components/schemas/OrderDalayDto"
+          },
+          "booking": {
+            "$ref": "#/components/schemas/OrderBookingDto"
+          },
+          "deliveries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderDeliveryDto"
+            },
+            "description": "Данные о доставке.",
+            "nullable": true
+          },
+          "prescriptionUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор рецепта в системе-источнике.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Информация по заказу."
+      },
+      "OrderDtoOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrderDto"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "OrderFilterDto": {
+        "type": "object",
+        "properties": {
+          "skip": {
+            "type": "integer",
+            "description": "Пропустить записей.",
+            "format": "int32",
+            "nullable": true,
+            "example": 0
+          },
+          "take": {
+            "type": "integer",
+            "description": "Количество записей, максимум 100.",
+            "format": "int32",
+            "nullable": true,
+            "example": 10
+          },
+          "patientSnils": {
+            "type": "string",
+            "description": "СНИЛС пациента.",
+            "nullable": true,
+            "example": "03181459436"
+          },
+          "prescriptionUids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Уникальные идентификаторы рецептов/назначений.",
+            "nullable": true
+          },
+          "orderUids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Список идентификаторов заказов.",
+            "nullable": true
+          },
+          "states": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderState"
+            },
+            "description": "Статусы заказов.",
+            "nullable": true,
+            "example": [
+              0,
+              1,
+              4
+            ]
+          },
+          "subdivisionOids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Oid'ы подразделений.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.114 поле \"OID\".",
+            "nullable": true,
+            "example": [
+              "1.2.643.5.1.13.13.12.2.31.2847.0.111713"
+            ]
+          },
+          "dateBegin": {
+            "type": "string",
+            "description": "Дата начала поиска по дате создания заказа (включительно).",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-11-16"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания поиска по дате создания заказа (включительно).",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-11-18"
+          },
+          "prescriptionNumbers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Номера рецептов.",
+            "nullable": true,
+            "example": [
+              "1006868",
+              "1006400"
+            ]
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер заказа.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Фильтр для поиска заказов."
+      },
+      "OrderMedicationDto": {
+        "required": [
+          "count"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Код номенклатуры в локальной системе.\r\nОбязательно, если не указан код по типу назначения.",
+            "nullable": true,
+            "example": "KLP-34672222."
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование в локальной системе.",
+            "nullable": true,
+            "example": "Метформин."
+          },
+          "type": {
+            "$ref": "#/components/schemas/PrescriptionType"
+          },
+          "codeByType": {
+            "type": "string",
+            "description": "Код, соответствующий типу назначения.\r\nЕСКЛП, Спец. питание, мед. изделия.\r\nОбязательно, если не указан код в локальной системе.",
+            "nullable": true,
+            "example": "21.20.10.119-000001-1-00093-2000000743440"
+          },
+          "count": {
+            "type": "integer",
+            "description": "Количество (упаковок).",
+            "format": "int32",
+            "example": 1
+          }
+        },
+        "additionalProperties": false,
+        "description": "Короткая модель назначения."
+      },
+      "OrderParam": {
+        "type": "object",
+        "properties": {
+          "paramName": {
+            "type": "string",
+            "description": "Наименование параметра без пробелов и спецсимволов (поле таблицы)",
+            "nullable": true,
+            "example": "PatientSurname"
+          },
+          "orderType": {
+            "$ref": "#/components/schemas/OrderType"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Сортировка параметров"
+      },
+      "OrderRegisterResult": {
+        "required": [
+          "state",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "state": {
+            "$ref": "#/components/schemas/OrderStateDto"
+          },
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа в формате UUID.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат регистрации заказа."
+      },
+      "OrderRegisterResultOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrderRegisterResult"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "OrderState": {
+        "enum": [
+          "Awaited",
+          "Delayed",
+          "Booked",
+          "Delivered",
+          "Completed",
+          "Canceled",
+          "Denied"
+        ],
+        "type": "string",
+        "description": "Статус заказа.<br />\r\n0 - Ожидает обработки.<br />\r\n1 - На отсроченном обслуживании.<br />\r\n2 - Забронирован.<br />\r\n3 - Доставляется.<br />\r\n4 - Выполнен.<br />\r\n5 - Отменен (пациентом).<br />\r\n6 - Отказано в обслуживании (аптекой).<br />"
+      },
+      "OrderStateDto": {
+        "required": [
+          "name",
+          "state"
+        ],
+        "type": "object",
+        "properties": {
+          "state": {
+            "$ref": "#/components/schemas/OrderState"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Название статуса.",
+            "example": "Ожидает обработки"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные статуса заказа."
+      },
+      "OrderType": {
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "type": "string",
+        "description": "Сортировка:<br />\r\n0 - По возрастанию.<br />\r\n1 - По убыванию.<br />"
+      },
+      "Organization": {
+        "required": [
+          "ogrn",
+          "shortName"
+        ],
+        "type": "object",
+        "properties": {
+          "shortName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Наименование организации (короткое).",
+            "example": "Шебекинская ЦРБ Тест"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "Наименование организации (полное).",
+            "nullable": true,
+            "example": "Шебекинская ЦРБ Тест"
+          },
+          "ogrn": {
+            "minLength": 1,
+            "type": "string",
+            "description": "ОГРН/ОГРНИП организации. Обязателен, если не заполнен Oid.",
+            "example": "1023101339030"
+          },
+          "inn": {
+            "type": "string",
+            "description": "ИНН организации.",
+            "nullable": true,
+            "example": "1023101339030"
+          },
+          "directorFullName": {
+            "type": "string",
+            "description": "ФИО руководителя.",
+            "nullable": true,
+            "example": "Советкин Иван Петрович"
+          },
+          "directorPhone": {
+            "type": "string",
+            "description": "Телефон руководителя.",
+            "nullable": true,
+            "example": "74722452555"
+          },
+          "oid": {
+            "type": "string",
+            "description": "OID медицинской организации Российской Федерации, выписавшей рецепт.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.11.1461 поле \"OID\". \r\nОбязателен для выписки рецептов",
+            "nullable": true,
+            "example": "1.2.643.5.1.13.13.12.2.31.2847"
+          },
+          "address": {
+            "type": "string",
+            "description": "Адрес организации.",
+            "nullable": true,
+            "example": "БЕЛГОРОДСКАЯ ОБЛ., ЯКОВЛЕВСКИЙ Р-Н., СТРОИТЕЛЬ Г. ЛЕНИНА УЛ 19, КОРП. А, СТР. 1 КВ. 56"
+          },
+          "licenseNumber": {
+            "type": "string",
+            "description": "Номер лицензии.",
+            "nullable": true,
+            "example": "ЛО-31-01-002705"
+          },
+          "workingHours": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkdayDto"
+            },
+            "description": "Часы работы.",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "description": "Url сайта организации.",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "string",
+            "description": "Широта.",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "string",
+            "description": "Долгота.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Организация."
+      },
+      "Patient": {
+        "required": [
+          "birthday",
+          "gender",
+          "localUid",
+          "name",
+          "snils",
+          "surname"
+        ],
+        "type": "object",
+        "properties": {
+          "localUid": {
+            "type": "string",
+            "description": "Идентификатор пациента в системе-источнике.",
+            "format": "uuid",
+            "example": "b9637ccc-9e35-4428-91e5-a48b78bbfa86"
+          },
+          "surname": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Фамилия.",
+            "example": "Иванов"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Имя.",
+            "example": "Иван"
+          },
+          "patronymic": {
+            "type": "string",
+            "description": "Отчество.",
+            "nullable": true,
+            "example": "Иванович"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Дата рождения.",
+            "format": "date",
+            "example": "2000-07-21"
+          },
+          "policyNumber": {
+            "type": "string",
+            "description": "Номер страхового полиса ОМС.",
+            "nullable": true,
+            "example": "1234567890000000"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "snils": {
+            "minLength": 1,
+            "type": "string",
+            "description": "СНИЛС пациента.",
+            "example": "03181459436"
+          },
+          "mPhone": {
+            "type": "string",
+            "description": "Номер мобильного телефона пациента",
+            "nullable": true,
+            "example": "9511514566"
+          },
+          "privilegeCode": {
+            "type": "string",
+            "description": "Код льготы.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.541 поле \"Код\".",
+            "nullable": true,
+            "example": "1.00000.0001"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Пациент"
+      },
+      "PatientMedication": {
+        "type": "object",
+        "properties": {
+          "prescriptionName": {
+            "type": "string",
+            "description": "Назначено.",
+            "nullable": true
+          },
+          "signa": {
+            "type": "string",
+            "description": "Схема приёма (сигнатура).",
+            "nullable": true
+          },
+          "numberDose": {
+            "type": "number",
+            "description": "Количество назначенных единиц.",
+            "format": "float"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код CMNN или Код справочника медицинского изделия или Код справочника специализированного питания.",
+            "nullable": true,
+            "example": "21.20.10.119-000001-1-00093-0000000000000"
+          },
+          "mnn": {
+            "type": "string",
+            "description": "Международное непатентованное наименование.",
+            "nullable": true,
+            "example": "БЕТАМЕТАЗОН."
+          },
+          "trn": {
+            "type": "string",
+            "description": "Торговое наименование.",
+            "nullable": true,
+            "example": "Дипроспан."
+          },
+          "dosageForm": {
+            "type": "string",
+            "description": "Лекарственная форма.",
+            "nullable": true,
+            "example": "СУСПЕНЗИЯ ДЛЯ ИНЪЕКЦИЙ."
+          },
+          "dosage": {
+            "type": "string",
+            "description": "Дозировка.",
+            "nullable": true,
+            "example": "2 мг+5 мг/мл."
+          },
+          "characteristic": {
+            "type": "string",
+            "description": "Характеристика.",
+            "nullable": true,
+            "example": "0,25мм (31G) х 6мм."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные о назначенном препарате для карточек в лк пациента."
+      },
+      "PatientOrderDto": {
+        "required": [
+          "creationDateTime",
+          "patientFullName",
+          "prescriptionName",
+          "prescriptionNumber",
+          "prescriptionUid",
+          "state",
+          "subdivision",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа в формате UUID.",
+            "format": "uuid"
+          },
+          "state": {
+            "$ref": "#/components/schemas/OrderStateDto"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер заказа.",
+            "nullable": true
+          },
+          "creationDateTime": {
+            "type": "string",
+            "description": "Дата создания заказа",
+            "format": "date-time",
+            "example": "2022-11-18"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Комментарий пациента к заказу.",
+            "nullable": true,
+            "example": "Предваритеольно позвонить по телефону."
+          },
+          "prescriptionUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор рецепта/назначения.",
+            "format": "uuid"
+          },
+          "prescriptionNumber": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Номер рецепта.",
+            "example": "Метформин, табл. пролонг., 750 мг"
+          },
+          "prescriptionName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Наименование препарата из рецета.",
+            "example": "Метформин, табл. пролонг., 750 мг"
+          },
+          "subdivision": {
+            "$ref": "#/components/schemas/Subdivision"
+          },
+          "medication": {
+            "$ref": "#/components/schemas/OrderMedicationDto"
+          },
+          "price": {
+            "type": "number",
+            "description": "Цена.",
+            "format": "double",
+            "nullable": true,
+            "example": 245.66
+          },
+          "deliveryAddress": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "patientFullName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "ФИО пациента.",
+            "example": "Иванов Иван Иванович"
+          },
+          "patientMPhone": {
+            "type": "string",
+            "description": "Номер мобильного телефона пациента.",
+            "nullable": true,
+            "example": "9511514566"
+          },
+          "cancelComment": {
+            "type": "string",
+            "description": "Комментарий к отмене заказа.\r\nДля статусов \"Отменен (пациентом)\", \"Отказано в обслуживании (аптекой)\".",
+            "nullable": true,
+            "example": "Препарата нет на складах."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Заказ на ЛП, МИ, Спец. питание"
+      },
+      "PatientOrderDtoIEnumerableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PatientOrderDto"
+            },
+            "description": "Данные результата.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "PatientPrescriptionDto": {
+        "required": [
+          "formType",
+          "organization",
+          "prescribedMedicationGuid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор рецепта в системе отправителе сведений в формате UUID.",
+            "format": "uuid"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер рецепта.",
+            "nullable": true,
+            "example": "1950873"
+          },
+          "series": {
+            "type": "string",
+            "description": "Серия рецепта.<br />\r\nПервые две цифры - ОКАТО региона,\r\nвторые две цифры - год.<br />\r\nДля наркотических бланков серия может содержать буквенные серии(AG, AI и т.д.)",
+            "nullable": true,
+            "example": "1423"
+          },
+          "formType": {
+            "$ref": "#/components/schemas/PrescriptionForm"
+          },
+          "prescribedMedicationGuid": {
+            "type": "string",
+            "description": "Уникальный идентификатор назначения.\r\nДля формы PrescribedMedication - указывается Uid назначения.",
+            "format": "uuid"
+          },
+          "medication": {
+            "$ref": "#/components/schemas/PatientMedication"
+          },
+          "deliveries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShortDeliveryDto"
+            },
+            "description": "Даннные о заказах на доставку.",
+            "nullable": true
+          },
+          "deliveryAddress": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "dateCreate": {
+            "type": "string",
+            "description": "Дата создания документа.",
+            "format": "date-time",
+            "example": "2022-04-30"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания действия рецепта.",
+            "format": "date-time",
+            "example": "2022-05-14"
+          },
+          "state": {
+            "$ref": "#/components/schemas/PrescriptionState"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/ShortOrganizationDto"
+          },
+          "medicalWorker": {
+            "$ref": "#/components/schemas/BasePersonalData"
+          },
+          "subdivisionOid": {
+            "type": "string",
+            "description": "Oid подразделения.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.114 поле \"OID\".",
+            "nullable": true,
+            "example": "1.2.643.5.1.13.13.12.2.31.2847.0.111713"
+          },
+          "patient": {
+            "$ref": "#/components/schemas/ShortPatient"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Модель рецептов/назначений для карточек в лк пациента."
+      },
+      "PatientPrescriptionDtoIEnumerableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PatientPrescriptionDto"
+            },
+            "description": "Данные результата.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "PersonalSignature": {
+        "required": [
+          "signature",
+          "signerRole"
+        ],
+        "type": "object",
+        "properties": {
+          "signerRole": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "signature": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Подпись в формате base64",
+            "example": "MIIHvQYJKoZIhvcNAQcCoIIHrjCCB6oCAQExDDAKBgYqhQMCAgkFADALBgkqhkiG9w0BBwGgggRcMIIEWDCCBAOgAwIBAgIQAdb+x1LOMQAAAAAWAAUAATAMBggqhQMHAQEDAgUAMIHqMSMwIQYDVQQMDBrQkNC00LzQuNC90LjRgdGC0YDQsNGC0L7RgDFEMEIGA1UECww70KPQtNC+0YHRgtC+0LLQtdGA0Y/RjtGJ0LjQuSDQuCDQutC70Y7Rh9C10LLQvtC5INGG0LXQvdGC0YAxLzAtBgNVBAoMJtCi0LXRgdGC0L7QstGL0Lkg0KPQpiDQmNC90YTQvtCi0LXQmtChMUwwSgYDVQQDDEPQkNC00LzQuNC90LjRgdGC0YDQsNGC0L7RgCDQotC10YHRgtC+0LLQvtCz0L4g0KPQpiDQmNC90YTQvtCi0LXQmtChMB4XDTIxMDIwOTA5MzgwMFoXDTIxMTIxNDIwNTk1OVowgdwxCzAJBgNVBAYTAlJVMTAwLgYDVQQqDCfQmNGA0LjQvdCwINCa0L7QvdGB0YLQsNC90YLQuNC90L7QstC90LAxIDAeBgNVBAQMF9CR0LXQt9C60YDRg9Cz0LvQvtCy0LAgMRYwFAYFKoUDZAMSCzA2OTUwMTU0NTcyMRgwFgYFKoUDZAESDTEwMjMxMDEzMzkwMzAxRzBFBgNVBAMMPtCR0LXQt9C60YDRg9Cz0LvQvtCy0LAg0JjRgNC40L3QsCDQmtC+0L3RgdGC0LDQvdGC0LjQvdC+0LLQvdCwMGMwHAYGKoUDAgITMBIGByqFAwICJAAGByqFAwICHgEDQwAEQOpGGz35kikXZqdCamJPfTRlg+RLot44Aktj9Dnk8vbiFUXuzv1NkTEcSvA9Cy87ZsbCSQ13DKxCq0SOITqdrcyBCQAwMDA1MDAwMaOCAX4wggF6MA4GA1UdDwEB/wQEAwIE8DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFJBbU0duHmppkZlCvKySaLzEOS9RMIIBKAYDVR0jBIIBHzCCARuAFJERpnIT0WROxfTgC2OtvIWAuTR8oYHwpIHtMIHqMSMwIQYDVQQMDBrQkNC00LzQuNC90LjRgdGC0YDQsNGC0L7RgDFEMEIGA1UECww70KPQtNC+0YHRgtC+0LLQtdGA0Y/RjtGJ0LjQuSDQuCDQutC70Y7Rh9C10LLQvtC5INGG0LXQvdGC0YAxLzAtBgNVBAoMJtCi0LXRgdGC0L7QstGL0Lkg0KPQpiDQmNC90YTQvtCi0LXQmtChMUwwSgYDVQQDDEPQkNC00LzQuNC90LjRgdGC0YDQsNGC0L7RgCDQotC10YHRgtC+0LLQvtCz0L4g0KPQpiDQmNC90YTQvtCi0LXQmtChghAB1tITmgRoQAAAABQABQABMAwGCCqFAwcBAQMCBQADQQCrAqRC873esukRozG84ToAWth0KxQe0GdsFAw0oLMPn7X0TbodSkWM3czcQcPU9Co7ywylOdOhwbNLBsBeoIZAMYIDKDCCAyQCAQEwgf8wgeoxIzAhBgNVBAwMGtCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAMUQwQgYDVQQLDDvQo9C00L7RgdGC0L7QstC10YDRj9GO0YnQuNC5INC4INC60LvRjtGH0LXQstC+0Lkg0YbQtdC90YLRgDEvMC0GA1UECgwm0KLQtdGB0YLQvtCy0YvQuSDQo9CmINCY0L3RhNC+0KLQtdCa0KExTDBKBgNVBAMMQ9CQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAINCi0LXRgdGC0L7QstC+0LPQviDQo9CmINCY0L3RhNC+0KLQtdCa0KECEAHW/sdSzjEAAAAAFgAFAAEwCgYGKoUDAgIJBQCgggHBMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTIxMDgyNzEzMTAwNFowLwYJKoZIhvcNAQkEMSIEIKvuJjbteAqmD3V6Mz8iiwpQnm9PMI3/GFYiZ2sz5zcSMIIBVAYLKoZIhvcNAQkQAi8xggFDMIIBPzCCATswggE3MAoGBiqFAwICCQUABCBkQ94c1MYy0Vq7lZdpXLqlCqCPs0AxekHT6T4gJ1Xp/zCCAQUwgfCkge0wgeoxIzAhBgNVBAwMGtCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAMUQwQgYDVQQLDDvQo9C00L7RgdGC0L7QstC10YDRj9GO0YnQuNC5INC4INC60LvRjtGH0LXQstC+0Lkg0YbQtdC90YLRgDEvMC0GA1UECgwm0KLQtdGB0YLQvtCy0YvQuSDQo9CmINCY0L3RhNC+0KLQtdCa0KExTDBKBgNVBAMMQ9CQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAINCi0LXRgdGC0L7QstC+0LPQviDQo9CmINCY0L3RhNC+0KLQtdCa0KECEAHW/sdSzjEAAAAAFgAFAAEwCgYGKoUDAgITBQAEQMIs10x6uIeYU/vJv8hxh58vwWMOQijEjwe7BBfzFvvHqJR2oxhteTsLVF09B+Lr2ytftkddLUel62tr2v/i3sY="
+          }
+        },
+        "additionalProperties": false,
+        "description": "Подпись врача/председателя комиссии."
+      },
+      "PharmacyOrderDto": {
+        "required": [
+          "creationDateTime",
+          "prescriptionName",
+          "prescriptionNumber",
+          "prescriptionUid",
+          "state",
+          "subdivision",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа в формате UUID.",
+            "format": "uuid"
+          },
+          "state": {
+            "$ref": "#/components/schemas/OrderStateDto"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер заказа.",
+            "nullable": true
+          },
+          "creationDateTime": {
+            "type": "string",
+            "description": "Дата создания заказа",
+            "format": "date-time",
+            "example": "2022-11-18"
+          },
+          "prescriptionUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор рецепта/назначения.",
+            "format": "uuid"
+          },
+          "price": {
+            "type": "number",
+            "description": "Цена.",
+            "format": "double",
+            "nullable": true,
+            "example": 245.66
+          },
+          "subdivision": {
+            "$ref": "#/components/schemas/Subdivision"
+          },
+          "prescriptionSeries": {
+            "type": "string",
+            "description": "Серия рецепта/назначения.",
+            "nullable": true,
+            "example": "1415"
+          },
+          "prescriptionNumber": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Номер рецепта/назначения.",
+            "example": "Метформин, табл. пролонг., 750 мг"
+          },
+          "prescriptionName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Наименование препарата из рецета.",
+            "example": "Метформин, табл. пролонг., 750 мг"
+          },
+          "medication": {
+            "$ref": "#/components/schemas/OrderMedicationDto"
+          },
+          "deliveryAddress": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "patientMPhone": {
+            "type": "string",
+            "description": "Номер мобильного телефона пациента.",
+            "nullable": true,
+            "example": "9511514566"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные заказа для аптеки."
+      },
+      "PharmacyOrderDtoIEnumerableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PharmacyOrderDto"
+            },
+            "description": "Данные результата.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "Prescription": {
+        "required": [
+          "dateCreate",
+          "dateEnd",
+          "doctor",
+          "formType",
+          "isPaper",
+          "medication",
+          "mkbCode",
+          "okatoCode",
+          "organization",
+          "patient",
+          "prescribedMedicationGuid",
+          "schemeUid",
+          "softwareName",
+          "subdivision",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор в системе-отправителе сведений в формате UUID.",
+            "format": "uuid"
+          },
+          "prescribedMedicationGuid": {
+            "type": "string",
+            "description": "Уникальный идентификатор назначения.\r\nДля формы PrescribedMedication - указывается Uid назначения.",
+            "format": "uuid"
+          },
+          "series": {
+            "type": "string",
+            "description": "Серия.",
+            "nullable": true,
+            "example": "1415"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер.",
+            "nullable": true,
+            "example": "1950873"
+          },
+          "dateCreate": {
+            "type": "string",
+            "description": "Дата выписки.",
+            "format": "date",
+            "example": "2021-08-30"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания действия.",
+            "format": "date",
+            "example": "2021-09-14"
+          },
+          "isChronic": {
+            "type": "boolean",
+            "description": "Признак хронического диагноза.",
+            "default": false,
+            "nullable": true
+          },
+          "formType": {
+            "$ref": "#/components/schemas/PrescriptionForm"
+          },
+          "isPaper": {
+            "type": "boolean",
+            "description": "Бумажный рецепт.\r\nПризнак того, что рецепт является дубликатом бумажного.",
+            "example": false
+          },
+          "patient": {
+            "$ref": "#/components/schemas/Patient"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/Organization"
+          },
+          "subdivision": {
+            "$ref": "#/components/schemas/Subdivision"
+          },
+          "doctor": {
+            "$ref": "#/components/schemas/MedicalWorker"
+          },
+          "chairman": {
+            "$ref": "#/components/schemas/MedicalWorker"
+          },
+          "medication": {
+            "$ref": "#/components/schemas/Medication"
+          },
+          "okatoCode": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Код субьекта РФ по ОКАТО",
+            "example": "14256"
+          },
+          "dispencePeriod": {
+            "type": "string",
+            "description": "Периодичность отпуска.",
+            "nullable": true,
+            "example": "ежемесячно"
+          },
+          "schemeUid": {
+            "type": "string",
+            "description": "Идентификатор схемы лечения (ТАП).",
+            "format": "uuid"
+          },
+          "representativeSnils": {
+            "type": "string",
+            "description": "СНИЛС представителя пациента.",
+            "nullable": true,
+            "example": "06950154572"
+          },
+          "representativeMPhone": {
+            "type": "string",
+            "description": "Номер мобильного телефона представителя пациента.",
+            "nullable": true,
+            "example": "9151141454"
+          },
+          "mkbCode": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Код диагноза пациента.",
+            "example": "I09.2"
+          },
+          "tag": {
+            "type": "string",
+            "description": "Поле для хранения доп. информации.",
+            "nullable": true,
+            "example": "Доп. информация"
+          },
+          "commissionDate": {
+            "type": "string",
+            "description": "Дата проведения врачебной комиссии.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2021-08-31T11:45:12+03:00"
+          },
+          "commissionNumber": {
+            "type": "string",
+            "description": "Номер врачебной комиссии.",
+            "nullable": true,
+            "example": "15544"
+          },
+          "softwareName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Наименование информационной системы - источника данных.",
+            "example": "MIS-API"
+          },
+          "deliveryAddress": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "deliveries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryDto"
+            },
+            "description": "Даннные о заказах на доставку.",
+            "nullable": true
+          },
+          "fundingSourceCode": {
+            "type": "string",
+            "description": "Код источника финансирования.",
+            "nullable": true,
+            "example": "1"
+          },
+          "percentageOfPayment": {
+            "type": "integer",
+            "description": "Процент оплаты",
+            "format": "int32",
+            "nullable": true,
+            "example": 100
+          },
+          "urgencyCode": {
+            "type": "string",
+            "description": "Приоритет исполнения рецепта (Срочность).\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.609 поле \"Уникальный идентификатор\".",
+            "nullable": true,
+            "example": "1"
+          },
+          "validityCode": {
+            "type": "string",
+            "description": "Срок действия рецепта.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.608 поле \"Уникальный идентификатор\".",
+            "nullable": true,
+            "example": "1"
+          },
+          "state": {
+            "$ref": "#/components/schemas/PrescriptionState"
+          },
+          "semdData": {
+            "$ref": "#/components/schemas/Semd"
+          },
+          "cancel": {
+            "$ref": "#/components/schemas/Cancel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Модель приёма данных рецепта/назначения"
+      },
+      "PrescriptionBlockedSections": {
+        "enum": [
+          "Patient",
+          "Semd"
+        ],
+        "type": "string",
+        "description": "Перечисление разделов Prescription-моделей, которые должны быть скрыты.<br />\r\n1 - Раздел \"Пациент\"<br />\r\n2 - Раздел \"Данные СЭМД\"<br />"
+      },
+      "PrescriptionDeliverySearch": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "$ref": "#/components/schemas/DeliveryState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Фильтр по заказам на доставку."
+      },
+      "PrescriptionForm": {
+        "enum": [
+          "PrescribedMedication",
+          "Frm1071U",
+          "Frm107UNP",
+          "Frm1481U04",
+          "Frm1481U88",
+          "Frm1Mi",
+          "Frm2Mi",
+          "Frm3Mi"
+        ],
+        "type": "string",
+        "description": "Тип рецепта/назначения (Номер формы бланка):<br />\r\n0 - Назначение ЛС.<br />\r\n1 - Форма 107-1/у – обычный рецепт на ЛП.<br />\r\n2 - Форма 107/у-НП – рецепт на наркотические ЛП, | льготный.<br />\r\n3 - Форма 148-1/у-04 (л) – льготный рецепт на ЛП.<br />\r\n4 - Форма 148-1/у-88 – рецепт на наркотические и психотропные ЛП и т.п.<br />\r\n5 - Форма 1-МИ – рецепт на МИ, | льготный.<br />\r\n6 - Форма 2-МИ – рецепт на очки коррегирующие, | льготный.<br />\r\n7 - Форма 3-МИ – рецепт на контактные линзы | льготный.<br />"
+      },
+      "PrescriptionIEnumerableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Prescription"
+            },
+            "description": "Данные результата.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "PrescriptionSearch": {
+        "type": "object",
+        "properties": {
+          "skip": {
+            "type": "integer",
+            "description": "Пропустить записей.",
+            "format": "int32",
+            "nullable": true,
+            "example": 0
+          },
+          "take": {
+            "type": "integer",
+            "description": "Количество записей, максимум 100.",
+            "format": "int32",
+            "nullable": true,
+            "example": 10
+          },
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор рецепта/назначения.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "prescribedMedicationGuid": {
+            "type": "string",
+            "description": "Идентификатор назначения (возврат всех рецептов по идентификатору назначения).",
+            "format": "uuid",
+            "nullable": true
+          },
+          "snils": {
+            "type": "string",
+            "description": "СНИЛС пациента. (Обязателен для авторизации по маркеру ЕСИА)",
+            "nullable": true,
+            "example": "03181459436"
+          },
+          "formTypeCode": {
+            "type": "string",
+            "description": "Код формы. Recipe - рецепты, Purpose - назначения, или конкретный FormType.Code.",
+            "nullable": true,
+            "example": "Frm1481U04"
+          },
+          "formTypeCodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PrescriptionForm"
+            },
+            "description": "Коды форм.",
+            "nullable": true,
+            "example": [
+              "Frm1481U04",
+              "Frm1071U"
+            ]
+          },
+          "phone": {
+            "type": "string",
+            "description": "Телефон пациента.",
+            "nullable": true,
+            "example": "89155141415"
+          },
+          "dateBegin": {
+            "type": "string",
+            "description": "Дата начала действия.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2021-07-01"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания действия.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2021-07-31"
+          },
+          "isDelivery": {
+            "type": "boolean",
+            "description": "Требуется доставка.\r\ntrue - только рецепты с доставкой,\r\nfalse - только рецепты без доставки,\r\nnull - все рецепты",
+            "nullable": true,
+            "example": false
+          },
+          "deliverySearch": {
+            "$ref": "#/components/schemas/PrescriptionDeliverySearch"
+          },
+          "deliveryOkatoCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Коды адреса (по ОКАТО)\r\nhttps://classifikators.ru/okato",
+            "nullable": true
+          },
+          "fundingSourceCode": {
+            "type": "string",
+            "description": "Код источника оплаты льготы.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.602",
+            "nullable": true,
+            "example": "1"
+          },
+          "hasBarCode": {
+            "type": "boolean",
+            "description": "Содержит штрих-код.\r\ntrue - только рецепты с штрих-кодом,\r\nfalse - только рецепты без штрих-кода,\r\nnull - все рецепты",
+            "nullable": true,
+            "example": false
+          },
+          "prescriptionStates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PrescriptionState"
+            },
+            "description": "Статусы рецепта. PrescriptionState.Code",
+            "nullable": true
+          },
+          "isPreferential": {
+            "type": "boolean",
+            "description": "Признак льготного рецепта\r\ntrue - только льготные рецепты,\r\nfalse - только коммерческие рецепты,\r\nnull - все рецепты",
+            "nullable": true,
+            "example": false
+          },
+          "organizationOid": {
+            "type": "string",
+            "description": "Oid организации (юр. лицо).",
+            "nullable": true,
+            "example": "1.2.643.5.1.13.13.12.2.31.2847"
+          },
+          "departmentOid": {
+            "type": "string",
+            "description": "Oid подразделения.",
+            "nullable": true,
+            "example": "1.2.643.5.1.13.13.12.2.31.2847.0.111713"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер рецепта.",
+            "nullable": true,
+            "example": "3556998"
+          },
+          "orderParam": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderParam"
+            },
+            "description": "Сортировка списка по параметрам модели",
+            "nullable": true
+          },
+          "blockedSections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PrescriptionBlockedSections"
+            },
+            "description": "Передача персональных данных не требуется",
+            "nullable": true,
+            "example": [
+              "Patient",
+              "Semd"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "PrescriptionState": {
+        "enum": [
+          "Registered",
+          "Dispensed",
+          "PartiallyDispensed",
+          "Canceled",
+          "DelayedService",
+          "Аnnulmented"
+        ],
+        "type": "string",
+        "description": "Статус рецепта/назначения:<br />\r\n0 - Зарегистрирован.<br />\r\n1 - Отпущен.<br />\r\n2 - Частично отпущен.<br />\r\n3 - Отменен.<br />\r\n4 - Отложенное обслуживание.<br />\r\n5 - Аннулирован.<br />"
+      },
+      "PrescriptionStateOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PrescriptionState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "PrescriptionType": {
+        "enum": [
+          "drug",
+          "nutrition",
+          "device"
+        ],
+        "type": "string",
+        "description": "Тип назначения.<br />\r\nФНСИ 1.2.643.5.1.13.13.99.2.651.<br />\r\n0 - Лекарственный препарат.<br />\r\n1 - Специализированный продукт лечебного питания.<br />\r\n2 - Медицинское изделие.<br />"
+      },
+      "RegistrationData": {
+        "type": "object",
+        "properties": {
+          "federalRegNumber": {
+            "type": "string",
+            "description": "Регистрационный номер СЭМД в Реестре ЭМД.",
+            "nullable": true,
+            "example": "155412"
+          },
+          "remdState": {
+            "$ref": "#/components/schemas/SemdState"
+          },
+          "remdStateDate": {
+            "type": "string",
+            "description": "Дата и время установления статуса рецепта в Реестре ЭМД.",
+            "format": "date-time",
+            "example": "2021-09-01T11:45:12+03:00"
+          },
+          "remdErrors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RemdError"
+            },
+            "description": "Ошибки регистрации в Реестре ЭМД.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные о регистрации СЭМД."
+      },
+      "Release": {
+        "required": [
+          "date",
+          "localUid",
+          "organization",
+          "pharmacist",
+          "prescriptionUid",
+          "software",
+          "subdivision"
+        ],
+        "type": "object",
+        "properties": {
+          "localUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор документа в системе отправителе в формате UUID.",
+            "format": "uuid"
+          },
+          "prescriptionUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор рецепта/назначения в системе отправителе сведений в формате UUID.",
+            "format": "uuid"
+          },
+          "date": {
+            "type": "string",
+            "description": "Дата отпуска/отмены документа.",
+            "format": "date",
+            "example": "2021-08-31"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/Organization"
+          },
+          "subdivision": {
+            "$ref": "#/components/schemas/Subdivision"
+          },
+          "pharmacist": {
+            "$ref": "#/components/schemas/ReleasePharmacist"
+          },
+          "medicationDispenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MedicationDispense"
+            },
+            "description": "Отпущенные прапараты",
+            "nullable": true
+          },
+          "signa": {
+            "type": "string",
+            "description": "Схема приёма.",
+            "nullable": true,
+            "example": "Принимать 1 шт перорально 1 раз в день в течение 1 дня"
+          },
+          "isPartialDispense": {
+            "type": "boolean",
+            "description": "Признак частичного отпуска",
+            "example": false
+          },
+          "cancel": {
+            "$ref": "#/components/schemas/ReleaseCancel"
+          },
+          "software": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Программное обеспечение, на котором осуществляется отпуск",
+            "example": "MIS-API"
+          },
+          "deliveryUid": {
+            "type": "string",
+            "description": "Идентификатор заказа на доставку",
+            "format": "uuid",
+            "nullable": true,
+            "example": "cc69f8da-e58b-4bff-8ee1-21d8b9073f2e"
+          },
+          "orderUid": {
+            "type": "string",
+            "description": "Идентификатор заказа на отсроченное обслуживание/бронирование.",
+            "format": "uuid",
+            "nullable": true,
+            "example": "dd79f5da-c61b-2bff-7ee1-21d8b8053f2e"
+          },
+          "semds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Semd"
+            },
+            "description": "СЭМДы отпуска",
+            "nullable": true
+          },
+          "prescriptionSemdLocalUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор СЭМДа выписки\r\nОбязателен для рецептов",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Отпуск рецепта/назначения."
+      },
+      "ReleaseCancel": {
+        "required": [
+          "reason"
+        ],
+        "type": "object",
+        "properties": {
+          "reason": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Причина аннулирования",
+            "example": "Причина аннулирования"
+          },
+          "reasonFederalCode": {
+            "type": "integer",
+            "description": "Код причины аннулирования по федеральному справочнику",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
+          }
+        },
+        "additionalProperties": false,
+        "description": "Аннулирование рецепта"
+      },
+      "ReleaseIEnumerableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Release"
+            },
+            "description": "Данные результата.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "ReleasePharmacist": {
+        "required": [
+          "frmrMedicalStaffPostCode",
+          "snils"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Имя пользователя",
+            "nullable": true,
+            "example": "Фармацевт"
+          },
+          "surname": {
+            "type": "string",
+            "description": "Фамилия пользователя",
+            "nullable": true,
+            "example": "Иванов"
+          },
+          "patronymic": {
+            "type": "string",
+            "description": "Отчество",
+            "nullable": true,
+            "example": "Иванович"
+          },
+          "snils": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Снилс",
+            "example": "03181459436"
+          },
+          "frmrMedicalStaffPostCode": {
+            "type": "integer",
+            "description": "Код должности.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.11.1002 поле \"Код\"",
+            "format": "int32",
+            "example": 231
+          }
+        },
+        "additionalProperties": false,
+        "description": "Фармацевт"
+      },
+      "ReleaseSearch": {
+        "type": "object",
+        "properties": {
+          "skip": {
+            "type": "integer",
+            "description": "Пропустить записей.",
+            "format": "int32",
+            "nullable": true,
+            "example": 0
+          },
+          "take": {
+            "type": "integer",
+            "description": "Количество записей, максимум 100.",
+            "format": "int32",
+            "nullable": true,
+            "example": 10
+          },
+          "releaseUid": {
+            "type": "string",
+            "description": "Идентификатор факта отпуска",
+            "format": "uuid",
+            "nullable": true
+          },
+          "prescriptionUid": {
+            "type": "string",
+            "description": "Идентификатор назначения/рецепта",
+            "format": "uuid",
+            "nullable": true
+          },
+          "dateBegin": {
+            "type": "string",
+            "description": "Дата начала отпуска.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2021-07-01"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания отпуска.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2021-07-31"
+          },
+          "isSendFailed": {
+            "type": "boolean",
+            "description": "Признак того, что отпуск не доставлен на платформу электронного рецепта",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Фильтр поиска отпуска"
+      },
+      "RemdError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Код ошибки.",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Данные об ошибке при регистрации.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Ошибки при регистрации СЭМД в РЭМД"
+      },
+      "Role": {
+        "enum": [
+          "Doctor",
+          "Chairman"
+        ],
+        "type": "string",
+        "description": "Роль сотрудника при подписании рецепта.<br />\r\nНа основе справочника ФНСИ 1.2.643.5.1.13.2.1.1.734.<br />\r\n0 - Врач.<br />\r\n1 - Председатель ВК.<br />"
+      },
+      "Semd": {
+        "required": [
+          "createDateTime",
+          "data",
+          "localUid",
+          "number",
+          "orgSignature",
+          "personalSignatures",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "localUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор документа СЭМД в системе отправителе сведений в формате UUID",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "description": "Версия СЭМДа.",
+            "format": "int32",
+            "example": 1
+          },
+          "number": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Номер документа внутри организации или подразделения.",
+            "example": "1950873"
+          },
+          "createDateTime": {
+            "type": "string",
+            "description": "Дата и время создания СЭМД рецепта.",
+            "format": "date-time",
+            "example": "2021-09-01T11:45:12+03:00"
+          },
+          "data": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Данные документа СЭМД в формате base64.",
+            "example": "PHhtbGV4YW1wbGU+0L/RgNC40LzQtdGAIHhtbCDRgdGN0LzQtNCwPC94bWxleGFtcGxlPg=="
+          },
+          "orgSignature": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Подпись организации в формате base64.",
+            "example": "MIIHjQYJKoZIhvcNAQcCoIIHfjCCB3oCAQExDjAMBggqhQMHAQECAgUAMAsGCSqGSIb3DQEHAaCCBCQwggQgMIIDy6ADAgECAhAB1yntZipfwAAAABYABQABMAwGCCqFAwcBAQMCBQAwgeoxIzAhBgNVBAwMGtCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAMUQwQgYDVQQLDDvQo9C00L7RgdGC0L7QstC10YDRj9GO0YnQuNC5INC4INC60LvRjtGH0LXQstC+0Lkg0YbQtdC90YLRgDEvMC0GA1UECgwm0KLQtdGB0YLQvtCy0YvQuSDQo9CmINCY0L3RhNC+0KLQtdCa0KExTDBKBgNVBAMMQ9CQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAINCi0LXRgdGC0L7QstC+0LPQviDQo9CmINCY0L3RhNC+0KLQtdCa0KEwHhcNMjEwNDA1MDcyOTAwWhcNMjExMjE0MjA1OTU5WjCBoTELMAkGA1UEBhMCUlUxKDAmBgNVBCoMH9CU0LzQuNGC0YDQuNC5INCe0LvQtdCz0L7QstC40YcxHTAbBgNVBAQMFNCf0L7QvdC+0LzQsNGA0YfRg9C6MRgwFgYFKoUDZAESDTEwMjMxMDEzMzkwMzAxLzAtBgNVBAMMJtCo0LXQsdC10LrQuNC90YHQutCw0Y8g0KbQoNCRINCi0LXRgdGCMGYwHwYIKoUDBwEBAQEwEwYHKoUDAgIjAQYIKoUDBwEBAgIDQwAEQPCQgh2GejRWGmAo7uxex1l7PmyuaukNwHDGhenvp87MLSX4uo0sE0e+laUlJa2kr7tn5t0zdPUuQJCgRibcW0GBCQAwMDA1MDAwMaOCAX4wggF6MA4GA1UdDwEB/wQEAwIE8DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFBRIzdMkTrmY+SqLbmQI5NaOMrmnMIIBKAYDVR0jBIIBHzCCARuAFJERpnIT0WROxfTgC2OtvIWAuTR8oYHwpIHtMIHqMSMwIQYDVQQMDBrQkNC00LzQuNC90LjRgdGC0YDQsNGC0L7RgDFEMEIGA1UECww70KPQtNC+0YHRgtC+0LLQtdGA0Y/RjtGJ0LjQuSDQuCDQutC70Y7Rh9C10LLQvtC5INGG0LXQvdGC0YAxLzAtBgNVBAoMJtCi0LXRgdGC0L7QstGL0Lkg0KPQpiDQmNC90YTQvtCi0LXQmtChMUwwSgYDVQQDDEPQkNC00LzQuNC90LjRgdGC0YDQsNGC0L7RgCDQotC10YHRgtC+0LLQvtCz0L4g0KPQpiDQmNC90YTQvtCi0LXQmtChghAB1tITmgRoQAAAABQABQABMAwGCCqFAwcBAQMCBQADQQBLNqxcDdqaHyr0ZX1nQloDsxN1d/DoZ1e30NquTi/75W6X/H1xe1gIBAKVd7ZygaJz90PXFUkXflBdZfy2+CMyMYIDLjCCAyoCAQEwgf8wgeoxIzAhBgNVBAwMGtCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAMUQwQgYDVQQLDDvQo9C00L7RgdGC0L7QstC10YDRj9GO0YnQuNC5INC4INC60LvRjtGH0LXQstC+0Lkg0YbQtdC90YLRgDEvMC0GA1UECgwm0KLQtdGB0YLQvtCy0YvQuSDQo9CmINCY0L3RhNC+0KLQtdCa0KExTDBKBgNVBAMMQ9CQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAINCi0LXRgdGC0L7QstC+0LPQviDQo9CmINCY0L3RhNC+0KLQtdCa0KECEAHXKe1mKl/AAAAAFgAFAAEwDAYIKoUDBwEBAgIFAKCCAcMwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjEwOTAxMTM0MTI3WjAvBgkqhkiG9w0BCQQxIgQgZ6dILGWiUdlAYSIpG71mPEHYXKXTdKPkENr06Y4CcF8wggFWBgsqhkiG9w0BCRACLzGCAUUwggFBMIIBPTCCATkwDAYIKoUDBwEBAgIFAAQg3ryTFUh1O+rzjSKafB8E5op6g04h5bQ52m2HalwALywwggEFMIHwpIHtMIHqMSMwIQYDVQQMDBrQkNC00LzQuNC90LjRgdGC0YDQsNGC0L7RgDFEMEIGA1UECww70KPQtNC+0YHRgtC+0LLQtdGA0Y/RjtGJ0LjQuSDQuCDQutC70Y7Rh9C10LLQvtC5INGG0LXQvdGC0YAxLzAtBgNVBAoMJtCi0LXRgdGC0L7QstGL0Lkg0KPQpiDQmNC90YTQvtCi0LXQmtChMUwwSgYDVQQDDEPQkNC00LzQuNC90LjRgdGC0YDQsNGC0L7RgCDQotC10YHRgtC+0LLQvtCz0L4g0KPQpiDQmNC90YTQvtCi0LXQmtChAhAB1yntZipfwAAAABYABQABMAwGCCqFAwcBAQEBBQAEQOqE4SyD3K9tIrqaQVznjxKUiWNQnq2bK+VkLFxI1WD2DdEXRZqNaU/SIMtMXgwdCZpzUZ/+wK88M8JzuwZmfKY="
+          },
+          "registrationData": {
+            "$ref": "#/components/schemas/RegistrationData"
+          },
+          "personalSignatures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PersonalSignature"
+            },
+            "description": "УКЭП сотрудников, которыми подписан рецепт"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Подписанный рецепт СЭМД"
+      },
+      "SemdState": {
+        "enum": [
+          "Sended",
+          "Registered",
+          "Error"
+        ],
+        "type": "string",
+        "description": "Статусы рецепта при взаимодействии с РЭМД:<br />\r\n0 - Отправлен (в процессе регистрации).<br />\r\n1 - Зарегистрирован.<br />\r\n2 - Ошибка регистрации.<br />"
+      },
+      "ShortCancel": {
+        "required": [
+          "author",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Дата отмены рецепта",
+            "format": "date",
+            "example": "2021-09-15"
+          },
+          "author": {
+            "$ref": "#/components/schemas/Author"
+          },
+          "reasonString": {
+            "type": "string",
+            "description": "Причина отмены рецепта (строкой).",
+            "nullable": true,
+            "example": "Причина отмены"
+          },
+          "reasonCode": {
+            "type": "string",
+            "description": "Код причины отмены рецепта.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.654 поле \"Уникальный идентификатор\"",
+            "nullable": true,
+            "example": "1.2.643.5.1.13.13.12.2.31.2834"
+          },
+          "organizationName": {
+            "type": "string",
+            "description": "Организация отменившая рецепт.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные об отмене рецепта."
+      },
+      "ShortDeliveryDto": {
+        "required": [
+          "dateCreate",
+          "state"
+        ],
+        "type": "object",
+        "properties": {
+          "dateCreate": {
+            "type": "string",
+            "description": "Дата и время формирования.",
+            "format": "date-time"
+          },
+          "state": {
+            "$ref": "#/components/schemas/DeliveryState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Короткая версия заказа на доставку."
+      },
+      "ShortMedication": {
+        "type": "object",
+        "properties": {
+          "prescriptionName": {
+            "type": "string",
+            "description": "Назначено.",
+            "nullable": true
+          },
+          "signa": {
+            "type": "string",
+            "description": "Схема приёма (сигнатура).",
+            "nullable": true
+          },
+          "precondition": {
+            "type": "string",
+            "description": "Особые указания.",
+            "nullable": true
+          },
+          "numberDose": {
+            "type": "number",
+            "description": "Количество назначенных единиц.",
+            "format": "float"
+          },
+          "mnn": {
+            "type": "string",
+            "description": "Международное непатентованное наименование.",
+            "nullable": true,
+            "example": "БЕТАМЕТАЗОН."
+          },
+          "trn": {
+            "type": "string",
+            "description": "Торговое наименование.",
+            "nullable": true,
+            "example": "Дипроспан."
+          },
+          "dosageForm": {
+            "type": "string",
+            "description": "Лекарственная форма.",
+            "nullable": true,
+            "example": "СУСПЕНЗИЯ ДЛЯ ИНЪЕКЦИЙ."
+          },
+          "dosage": {
+            "type": "string",
+            "description": "Дозировка.",
+            "nullable": true,
+            "example": "2 мг+5 мг/мл."
+          },
+          "characteristic": {
+            "type": "string",
+            "description": "Характеристика.",
+            "nullable": true,
+            "example": "0,25мм (31G) х 6мм."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные о назначенном препарате."
+      },
+      "ShortOrganizationDto": {
+        "required": [
+          "shortName"
+        ],
+        "type": "object",
+        "properties": {
+          "shortName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Наименование организации (короткое).",
+            "example": "Шебекинская ЦРБ Тест."
+          },
+          "oid": {
+            "type": "string",
+            "description": "OID медицинской организации Российской Федерации, выписавшей рецепт.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.11.1461 поле \"OID\".\r\nОбязателен для выписки рецептов.",
+            "nullable": true,
+            "example": "1.2.643.5.1.13.13.12.2.31.2847"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Короткая версия модели организации."
+      },
+      "ShortPatient": {
+        "type": "object",
+        "properties": {
+          "surname": {
+            "type": "string",
+            "description": "Фамилия.",
+            "nullable": true,
+            "example": "Иванов"
+          },
+          "name": {
+            "type": "string",
+            "description": "Имя.",
+            "nullable": true,
+            "example": "Иван"
+          },
+          "patronymic": {
+            "type": "string",
+            "description": "Отчество.",
+            "nullable": true,
+            "example": "Иванович"
+          },
+          "privilegeCode": {
+            "type": "string",
+            "description": "Льгота пациента.",
+            "nullable": true,
+            "example": "1.00000.0033"
+          },
+          "mPhone": {
+            "type": "string",
+            "description": "Номер мобильного телефона пациента",
+            "nullable": true,
+            "example": "9511514566"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Короткая модель пациента."
+      },
+      "ShortPrescription": {
+        "required": [
+          "formType"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор рецепта в системе отправителе сведений в формате UUID",
+            "format": "uuid"
+          },
+          "series": {
+            "type": "string",
+            "description": "Серия рецепта.",
+            "nullable": true,
+            "example": "1416"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер рецепта.",
+            "nullable": true,
+            "example": "1950873"
+          },
+          "formType": {
+            "$ref": "#/components/schemas/PrescriptionForm"
+          },
+          "medication": {
+            "$ref": "#/components/schemas/ShortMedication"
+          },
+          "dateCreate": {
+            "type": "string",
+            "description": "Дата создания документа.",
+            "format": "date-time",
+            "example": "2022-04-30"
+          },
+          "dateEnd": {
+            "type": "string",
+            "description": "Дата окончания действия рецепта.",
+            "format": "date-time",
+            "example": "2022-05-14"
+          },
+          "deliveries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryDto"
+            },
+            "description": "Даннные о заказах на доставку.",
+            "nullable": true
+          },
+          "state": {
+            "$ref": "#/components/schemas/PrescriptionState"
+          },
+          "organizationName": {
+            "type": "string",
+            "description": "Наименование организации.",
+            "nullable": true,
+            "example": "ОГБУЗ \"ЯКОВЛЕВСКАЯ ЦРБ\""
+          },
+          "medicalWorker": {
+            "$ref": "#/components/schemas/BasePersonalData"
+          },
+          "isPaper": {
+            "type": "boolean",
+            "description": "Бумажный рецепт.\r\nПризнак того, что рецепт является дубликатом бумажного.",
+            "example": false
+          },
+          "fundingSource": {
+            "$ref": "#/components/schemas/StringBaseDictionary"
+          },
+          "cancel": {
+            "$ref": "#/components/schemas/ShortCancel"
+          },
+          "patient": {
+            "$ref": "#/components/schemas/ShortPatient"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Короткая модель рецепта."
+      },
+      "ShortPrescriptionIEnumerableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShortPrescription"
+            },
+            "description": "Данные результата.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "ShortRelease": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор отпуска рецепта/назначения.",
+            "format": "uuid"
+          },
+          "medicationDispenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MedicationDispense"
+            },
+            "description": "Отпущенные препараты",
+            "nullable": true
+          },
+          "signa": {
+            "type": "string",
+            "description": "Комментарий",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "description": "Дата отпуска/отмены документа.",
+            "format": "date-time"
+          },
+          "organizationName": {
+            "type": "string",
+            "description": "Наименование организации, отпустившей рецепт/назначение.",
+            "nullable": true
+          },
+          "cancelReasonText": {
+            "type": "string",
+            "description": "Причина аннулирования.",
+            "nullable": true
+          },
+          "pharmacist": {
+            "$ref": "#/components/schemas/Author"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Короткая модель отпуска."
+      },
+      "ShortReleaseIEnumerableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShortRelease"
+            },
+            "description": "Данные результата.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "SimpleOrder": {
+        "required": [
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Уникальный идентификатор заказа в формате UUID.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Простой класс заказа для поиска."
+      },
+      "StringBaseDictionary": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Код.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Справочник."
+      },
+      "StringBaseDictionaryIEnumerableOperationResult": {
+        "type": "object",
+        "properties": {
+          "requestUid": {
+            "type": "string",
+            "description": "Уникальный идентификатор запроса",
+            "format": "uuid",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "Список ошибок если результат - ошибка.",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StringBaseDictionary"
+            },
+            "description": "Данные результата.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат выполнения операции."
+      },
+      "Subdivision": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Наименование.",
+            "example": "Терапевтическое отделение"
+          },
+          "code": {
+            "type": "string",
+            "description": "Уникальный код подразделения. Обязателен, если не заполнен Oid.",
+            "nullable": true,
+            "example": "1023101339030"
+          },
+          "oid": {
+            "type": "string",
+            "description": "Oid подразделения.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.114 поле \"OID\". \r\nОбязателен для выписки рецептов",
+            "nullable": true,
+            "example": "1.2.643.5.1.13.13.12.2.31.2847.0.111713"
+          },
+          "directorPhone": {
+            "type": "string",
+            "description": "Телефон руководителя.",
+            "nullable": true,
+            "example": "74722452555"
+          },
+          "address": {
+            "type": "string",
+            "description": "Адрес.",
+            "nullable": true,
+            "example": "БЕЛГОРОДСКАЯ ОБЛ., ЯКОВЛЕВСКИЙ Р-Н., СТРОИТЕЛЬ Г. ЛЕНИНА УЛ 19, КОРП. А, СТР. 1"
+          },
+          "kindCode": {
+            "type": "string",
+            "description": "Код вида подразделения\r\nФедеральный справочник 1.2.643.5.1.13.13.11.1072",
+            "nullable": true,
+            "example": "1005"
+          },
+          "workingHours": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkdayDto"
+            },
+            "description": "Часы работы.",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "string",
+            "description": "Широта.",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "string",
+            "description": "Долгота.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Подразделение.\r\nСправочник ФНСИ 1.2.643.5.1.13.13.99.2.114"
+      },
+      "WorkdayDto": {
+        "required": [
+          "end",
+          "start"
+        ],
+        "type": "object",
+        "properties": {
+          "kindDay": {
+            "$ref": "#/components/schemas/DayOfWeek"
+          },
+          "start": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Начало рабочего дня.",
+            "example": "01:00"
+          },
+          "end": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Конец рабочего дня.",
+            "example": "01:00"
+          },
+          "timeoutStart": {
+            "type": "string",
+            "description": "Начало перерыва.",
+            "nullable": true,
+            "example": "01:00"
+          },
+          "timeoutEnd": {
+            "type": "string",
+            "description": "Конец перерыва.",
+            "nullable": true,
+            "example": "01:00"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Рабочий день."
+      }
+    }
+  }
+}
